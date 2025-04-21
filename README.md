@@ -1,36 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## DW Chat Next
 
-## Getting Started
+一个接入 DeepSeek-V3、DeepSeek-R1 大模型的极简 AI 对话页面. 
+由 NextJS 15 构建的全栈项目.
 
-First, run the development server:
+
+演示地址：https://dw-chat-next.vercel.app
+
+效果图：
+
+
+
+#### 主要技术：
+
+1.DeepSeek-V3、DeepSeek-R1 LLM
+
+2.React 19
+
+3.NextJS 15
+
+4.shadcn/ui
+
+5.tailwind SCC
+
+6.drizzle-orm
+
+
+### 项目结构
+
+dw-chat-web-lite：纯前端版工程     Github：https://github.com/dawei1898/dw-chat-web-lite
+
+dw-chat-web：前端工程        Github：https://github.com/dawei1898/dw-chat-web
+
+dw-chat：后端工程        Github：https://github.com/dawei1898/dw-chat
+
+dw-chat-next：next 全栈版工程      Github：https://github.com/dawei1898/dw-chat-next
+
+
+
+### 本地启动项目
+
+安装依赖
+```shell
+npm install
+```
+
+启动项目
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+打开项目 http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+### 本项目用到的库
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+安装 openai
+```shell
+npm install openai
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+安装 markdown-it
+```shell
+npm install markdown-it --save
+npm install @types/markdown-it --save-dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+代码高亮
+```shell
+npm install highlight.js
+```
+高亮样式
+```ts
+import 'highlight.js/styles/atom-one-light.css';
+```
+
+复制
+```shell
+npm install clipboard-polyfill
+```
+
+```shell
+npm install use-immer
+```
+
+客户端 Cookie
+```shell
+npm install js-cookie @types/js-cookie
+```
