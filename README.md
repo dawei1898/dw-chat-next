@@ -57,7 +57,28 @@ npm run dev
 
 ### 本项目用到的库
 
+shadcn/ui官网  https://ui.shadcn.com
 
+Icon 库 https://heroicons.com
+
+安装 shadcn/ui
+```shell
+npx shadcn@latest init
+```
+
+```shell
+npm install tw-animate-css
+```
+
+添加组件
+```shell
+npx shadcn@latest add button
+```
+
+安装 主题
+```shell
+npm install next-themes
+```
 
 安装 openai
 ```shell
