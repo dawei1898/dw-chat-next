@@ -4,12 +4,13 @@ import React, {useState} from 'react';
 import {Textarea} from "@/components/ui/textarea";
 import {Button} from "@/components/ui/button";
 import {ArrowUp, Atom, Paperclip} from "lucide-react";
-import {StopIcon} from "@/components/icons";
+import {GlobeIcon, StopIcon} from "@/components/icons";
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
 
 const Sender = () => {
-    const [openReasoning, setOpenReasoning] = useState<boolean>(false);
     const [value, setValue] = useState<string>('');
+    const [openReasoning, setOpenReasoning] = useState<boolean>(false);
+    const [openSearch, setOpenSearch] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
 
     const onSubmit = async (msg?: string) => {
@@ -39,22 +40,6 @@ const Sender = () => {
             </Textarea>
 
             <div className='flex items-center space-x-2 py-2 px-4 '>
-                {/* 附件 */}
-                <Tooltip>
-                    <TooltipTrigger asChild>
-                        <Button
-                            className='h-7 w-7 cursor-pointer'
-                            variant="outline"
-                            size="icon"
-                        >
-                            <Paperclip/>
-                        </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                        <span className='text-primary-foreground'>添加文件</span>
-                    </TooltipContent>
-                </Tooltip>
-
                 {/* 深度思考 */}
                 <Tooltip>
                     <TooltipTrigger asChild>
@@ -75,7 +60,44 @@ const Sender = () => {
                         </TooltipContent>
                         : undefined
                     }
+                </Tooltip>
 
+                {/* 联网搜索 */}
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <Button
+                            className={`h-7 cursor-pointer ${openSearch ? 'bg-primary/30 text-primary hover:bg-primary/30 hover:text-primary' : ''}`}
+                            variant='outline'
+                            onClick={() => setOpenSearch(!openSearch)}
+                        >
+                            <GlobeIcon/>
+                            <span>联网搜索</span>
+                        </Button>
+                    </TooltipTrigger>
+                    {!openSearch ?
+                        <TooltipContent>
+                            <span className='text-primary-foreground'>
+                                按需搜索网页
+                            </span>
+                        </TooltipContent>
+                        : undefined
+                    }
+                </Tooltip>
+
+                {/* 附件 */}
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <Button
+                            className='h-7 w-7 ml-auto cursor-pointer'
+                            variant="ghost"
+                            size="icon"
+                        >
+                            <Paperclip/>
+                        </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                        <span className='text-primary-foreground'>添加文件</span>
+                    </TooltipContent>
                 </Tooltip>
 
                 {!loading ?
@@ -83,7 +105,7 @@ const Sender = () => {
                     <Tooltip>
                         <TooltipTrigger asChild>
                             <Button
-                                className='h-7 w-7 ml-auto rounded-full cursor-pointer active:bg-primary'
+                                className='h-7 w-7 rounded-full cursor-pointer active:bg-primary'
                                 size='icon'
                                 type='submit'
                                 disabled={value === '' && !loading}
@@ -105,7 +127,7 @@ const Sender = () => {
                     <Tooltip>
                         <TooltipTrigger asChild>
                             <Button
-                                className='h-7 w-7 ml-auto rounded-full cursor-pointer active:bg-primary'
+                                className='h-7 w-7 rounded-full cursor-pointer active:bg-primary'
                                 size='icon'
                                 onClick={() => {
                                     setLoading(false)

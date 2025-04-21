@@ -17,7 +17,10 @@ const MenuDeleteItem = () => {
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
-                <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                <DropdownMenuItem
+                    className='cursor-pointer'
+                    onSelect={(e) => e.preventDefault()}
+                >
                     <Trash2/>
                     <span>删除</span>
                 </DropdownMenuItem>
@@ -31,12 +34,14 @@ const MenuDeleteItem = () => {
                 </p>
                 <DialogFooter>
                     <Button
+                        className='cursor-pointer'
                         variant='outline'
                         onClick={() => setIsOpen(false)}
                     >
                         取消
                     </Button>
                     <Button
+                        className='cursor-pointer'
                         type="submit"
                         variant='destructive'
                         onClick={() => setIsOpen(false)}

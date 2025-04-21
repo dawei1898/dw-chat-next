@@ -18,7 +18,10 @@ const MenuEditItem = () => {
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
-                <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                <DropdownMenuItem
+                    className='cursor-pointer'
+                    onSelect={(e) => e.preventDefault()}
+                >
                     <Edit/>
                     <span>编辑</span>
                 </DropdownMenuItem>
@@ -32,13 +35,14 @@ const MenuEditItem = () => {
                 </div>
                 <DialogFooter>
                     <Button
+                        className='cursor-pointer'
                         variant='outline'
                         onClick={() => setIsOpen(false)}
                     >
                         取消
                     </Button>
                     <Button
-                        type="submit"
+                        className='cursor-pointer'
                         onClick={() => setIsOpen(false)}
                     >
                         确定
