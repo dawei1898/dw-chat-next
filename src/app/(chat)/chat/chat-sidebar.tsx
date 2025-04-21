@@ -1,7 +1,7 @@
 import React from 'react';
 import {
     Plus,
-} from "lucide-react"
+} from "lucide-react";
 import {
     Sidebar,
     SidebarContent,
@@ -36,6 +36,7 @@ const ChatSidebar = () => {
         >
             <SidebarHeader  className='not-dark:bg-slate-50'>
                 <SidebarMenu>
+                    {/* Logo & Title */}
                     <SidebarMenuItem>
                         <Logo/>
                     </SidebarMenuItem>
@@ -43,7 +44,10 @@ const ChatSidebar = () => {
                     {/* 新建会话 */}
                     <SidebarMenuItem>
                         <SidebarMenuButton
-                            className='w-4/5 mx-auto my-3 cursor-pointer  bg-sidebar-primary  hover:bg-sidebar-primary/80  active:bg-sidebar-primary text-sidebar-primary-foreground hover:text-sidebar-primary-foreground active:text-sidebar-primary-foreground'
+                            className='w-4/5 mx-auto my-3 cursor-pointer  bg-sidebar-primary
+                                hover:bg-sidebar-primary/80  active:bg-sidebar-primary
+                                text-sidebar-primary-foreground hover:text-sidebar-primary-foreground
+                                active:text-sidebar-primary-foreground'
                             tooltip='新建会话'
                         >
                             <Plus className='ml-auto'/>
@@ -56,7 +60,7 @@ const ChatSidebar = () => {
             <SidebarContent className='not-dark:bg-slate-50'>
                 <ScrollArea className={'h-full'}>
                 {/* 边栏内容组 */}
-               {/* <SideMenu/>*/}
+                {/*<SideMenu/>*/}
                 {/* 会话列表 */}
                 <Conversations/>
                 </ScrollArea>

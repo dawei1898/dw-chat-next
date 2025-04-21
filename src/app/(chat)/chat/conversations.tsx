@@ -12,12 +12,13 @@ import {
 import {
     DropdownMenu,
     DropdownMenuContent,
-    DropdownMenuItem,
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import {
-    Delete, Edit, MoreHorizontal, Trash2
-} from "lucide-react";
+import {  MoreHorizontal } from "lucide-react";
+
+import MenuEditItem from "@/app/(chat)/chat/menu-edit-item";
+import MenuDeleteItem from "@/app/(chat)/chat/menu-delete-item";
+
 
 /**
  * 会话列表
@@ -42,14 +43,8 @@ const ConversationsPage = () => {
                                 </SidebarMenuAction>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent side='right' align='end'>
-                                <DropdownMenuItem>
-                                    <Edit/>
-                                    <span>编辑</span>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    <Trash2/>
-                                    <span>删除</span>
-                                </DropdownMenuItem>
+                                <MenuEditItem/>
+                                <MenuDeleteItem/>
                             </DropdownMenuContent>
                         </DropdownMenu>
                     </SidebarMenuItem>
