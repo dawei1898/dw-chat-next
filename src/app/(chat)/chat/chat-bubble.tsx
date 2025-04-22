@@ -4,7 +4,7 @@ import {Button} from "@/components/ui/button";
 import {ThumbsUp, ThumbsDown, Copy, Bot, User, ChevronDown, ChevronUp, Atom} from 'lucide-react';
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
 import MarkdownRender from "@/app/(chat)/chat/markdown-render";
-import {CheckedCircle} from "@/components/icons";
+import {CheckedCircle, DeepSeekIcon} from "@/components/icons";
 import {toast} from "sonner";
 
 interface ChatBubbleProps {
@@ -66,12 +66,10 @@ const ChatBubble = ({
         // AI 气泡
         return (
             <div className="flex items-start mb-4">
-                <Avatar className="mr-3 flex-shrink-0 ring-1 shrink-0 ring-border p-1">
-                    <AvatarImage src={avatarSrc} alt="AI Avatar"/>
-                    <AvatarFallback>
-                        {/*<Bot size={20}/>*/}
-                    </AvatarFallback>
-                </Avatar>
+                <div
+                    className="size-8 flex items-center justify-center rounded-full mr-3 ring-1 shrink-0 ring-border bg-background">
+                    <DeepSeekIcon size={25}/>
+                </div>
                 <div className="flex flex-col w-full max-w-[95%]">
                     {/* 思考内容 */}
                     {reasoningContent && (

@@ -11,8 +11,9 @@ import {GithubIcon, UserIcon} from "@/components/icons";
 import {BadgeCheck, ChevronsUpDown, LogOut, Settings} from "lucide-react";
 import Link from "next/link";
 import ThemeToggle from "@/app/(chat)/chat/theme-toggle";
+import {LoginUser} from "@/types/user";
 
-const NavFooter = () => {
+const NavFooter = ({user}: {user?: LoginUser}) => {
     const {open, isMobile} = useSidebar();
 
     return (
@@ -27,7 +28,7 @@ const NavFooter = () => {
                             className={'w-30'}
                         >
                             <UserIcon/>
-                            <span>dawei</span>
+                            <span>{user?.username}</span>
                             <ChevronsUpDown className="ml-auto size-4" />
                         </SidebarMenuButton>
                     </DropdownMenuTrigger>

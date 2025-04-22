@@ -9,12 +9,12 @@ import {Separator} from "@/components/ui/separator";
 import {ScrollArea} from "@/components/ui/scroll-area";
 import ChatSidebar from './chat-sidebar';
 import ChatSidebarTrigger from './chat-sidebar-trigger';
-import Sender from './sender';
+import ChatSender from './chat-sender';
 import {ChatExample} from "@/app/(chat)/chat/chat-bubble";
 import {useAuth} from "@/components/provider/auth-provider";
 import {useRouter} from "next/navigation";
 
-const ChatPage = () => {
+const ChatPage2 = () => {
     const {isLogin} = useAuth();
     const router = useRouter();
     const messagesEndRef = useRef<HTMLDivElement>(null)
@@ -74,7 +74,7 @@ const ChatPage = () => {
                     </ScrollArea>
 
                     {/* 发送框 */}
-                    <Sender/>
+                    <ChatSender/>
 
                     <footer>
                         <span className='text-xs text-foreground/50'>
@@ -89,4 +89,4 @@ const ChatPage = () => {
     );
 };
 
-export default ChatPage;
+export default ChatPage2;

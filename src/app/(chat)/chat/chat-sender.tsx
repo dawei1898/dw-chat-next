@@ -11,7 +11,7 @@ import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
 /**
  * 发送框组件
  */
-const Sender = () => {
+const ChatSender = () => {
     const [value, setValue] = useState<string>('');
     const [openReasoning, setOpenReasoning] = useState<boolean>(false);
     const [openSearch, setOpenSearch] = useState<boolean>(false);
@@ -28,7 +28,7 @@ const Sender = () => {
 
     return (
         <div
-            className="max-w-2xl w-full mt-auto bg-background rounded-2xl
+            className="max-w-2xl w-full mt-auto mb-7 bg-background rounded-2xl
                         outline-1 focus-within:outline-2 -outline-offset-1 focus-within:-outline-offset-2
                          outline-muted-foreground/50 focus-within:outline-primary"
         >
@@ -151,4 +151,4 @@ const Sender = () => {
     );
 };
 
-export default Sender;
+export default ChatSender;

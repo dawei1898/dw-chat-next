@@ -18,6 +18,7 @@ import {  MoreHorizontal } from "lucide-react";
 
 import MenuEditItem from "@/app/(chat)/chat/menu-edit-item";
 import MenuDeleteItem from "@/app/(chat)/chat/menu-delete-item";
+import {ScrollArea} from "@/components/ui/scroll-area";
 
 
 /**
@@ -27,71 +28,76 @@ import MenuDeleteItem from "@/app/(chat)/chat/menu-delete-item";
 const ConversationsPage = () => {
     const {open} = useSidebar();
 
+    console.log('ConversationsPage')
+
     return (open &&
-        <SidebarGroup>
-            <SidebarGroupLabel>今天</SidebarGroupLabel>
-            <SidebarGroupContent>
-                <SidebarMenu>
-                    <SidebarMenuItem key={1}>
-                        <SidebarMenuButton className='cursor-pointer' asChild>
-                            <span>conversation 1</span>
-                        </SidebarMenuButton>
-                        <DropdownMenu >
-                            <DropdownMenuTrigger asChild>
-                                <SidebarMenuAction className='cursor-pointer'>
-                                    <MoreHorizontal/>
+        <ScrollArea className={'h-full'}>
+            <SidebarGroup>
+                <SidebarGroupLabel>今天</SidebarGroupLabel>
+                <SidebarGroupContent>
+                    <SidebarMenu>
+                        <SidebarMenuItem key={1}>
+                            <SidebarMenuButton className='cursor-pointer' asChild>
+                                <span>conversation 1</span>
+                            </SidebarMenuButton>
+                            <DropdownMenu >
+                                <DropdownMenuTrigger asChild>
+                                    <SidebarMenuAction className='cursor-pointer'>
+                                        <MoreHorizontal/>
+                                    </SidebarMenuAction>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent side='right' align='end'>
+                                    <MenuEditItem/>
+                                    <MenuDeleteItem/>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                        </SidebarMenuItem>
+
+                        <SidebarMenuItem key={2}>
+                            <SidebarMenuButton asChild>
+                                <span>conversation 2</span>
+                            </SidebarMenuButton>
+                            <SidebarMenuAction>
+                                ...
+                            </SidebarMenuAction>
+                        </SidebarMenuItem>
+                    </SidebarMenu>
+                </SidebarGroupContent>
+
+                <SidebarGroupLabel>最近一周</SidebarGroupLabel>
+                <SidebarGroupContent>
+                    <SidebarMenu>
+                        {Array.from({length: 5}).map((_, index) => (
+                            <SidebarMenuItem key={`${index + 3}`}>
+                                <SidebarMenuButton asChild>
+                                    <span>{`conversation ${index + 3}`}</span>
+                                </SidebarMenuButton>
+                                <SidebarMenuAction>
+                                    ...
                                 </SidebarMenuAction>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent side='right' align='end'>
-                                <MenuEditItem/>
-                                <MenuDeleteItem/>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
-                    </SidebarMenuItem>
+                            </SidebarMenuItem>
+                        ))}
+                    </SidebarMenu>
+                </SidebarGroupContent>
 
-                    <SidebarMenuItem key={2}>
-                        <SidebarMenuButton asChild>
-                            <span>conversation 2</span>
-                        </SidebarMenuButton>
-                        <SidebarMenuAction>
-                            ...
-                        </SidebarMenuAction>
-                    </SidebarMenuItem>
-                </SidebarMenu>
-            </SidebarGroupContent>
+                <SidebarGroupLabel>最近30天</SidebarGroupLabel>
+                <SidebarGroupContent>
+                    <SidebarMenu>
+                        {Array.from({length: 10}).map((_, index) => (
+                            <SidebarMenuItem key={`${index + 8}`}>
+                                <SidebarMenuButton asChild>
+                                    <span>{`conversation ${index + 8}`}</span>
+                                </SidebarMenuButton>
+                                <SidebarMenuAction>
+                                    ...
+                                </SidebarMenuAction>
+                            </SidebarMenuItem>
+                        ))}
+                    </SidebarMenu>
+                </SidebarGroupContent>
+            </SidebarGroup>
+        </ScrollArea>
 
-            <SidebarGroupLabel>最近一周</SidebarGroupLabel>
-            <SidebarGroupContent>
-                <SidebarMenu>
-                    {Array.from({length: 5}).map((_, index) => (
-                        <SidebarMenuItem key={`${index + 3}`}>
-                            <SidebarMenuButton asChild>
-                                <span>{`conversation ${index + 3}`}</span>
-                            </SidebarMenuButton>
-                            <SidebarMenuAction>
-                                ...
-                            </SidebarMenuAction>
-                        </SidebarMenuItem>
-                    ))}
-                </SidebarMenu>
-            </SidebarGroupContent>
-
-            <SidebarGroupLabel>最近30天</SidebarGroupLabel>
-            <SidebarGroupContent>
-                <SidebarMenu>
-                    {Array.from({length: 10}).map((_, index) => (
-                        <SidebarMenuItem key={`${index + 8}`}>
-                            <SidebarMenuButton asChild>
-                                <span>{`conversation ${index + 8}`}</span>
-                            </SidebarMenuButton>
-                            <SidebarMenuAction>
-                                ...
-                            </SidebarMenuAction>
-                        </SidebarMenuItem>
-                    ))}
-                </SidebarMenu>
-            </SidebarGroupContent>
-        </SidebarGroup>
     );
 };
 

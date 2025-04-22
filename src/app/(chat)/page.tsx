@@ -1,5 +1,5 @@
 import React from 'react';
-import ChatPage from "@/app/(chat)/chat/page";
+import ChatPage from "@/app/(chat)/chat/chat";
 
 const ChatHome = () => {
     return (

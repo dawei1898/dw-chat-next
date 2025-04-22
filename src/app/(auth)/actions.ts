@@ -93,5 +93,5 @@ export async function getUserCookieAction() {
     } catch (e) {
         console.log('Failed to getUserCookie.', e)
     }
-    return null
+    return undefined
 }

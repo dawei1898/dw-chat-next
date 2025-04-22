@@ -142,3 +142,7 @@ SSE 请求工具 fetch-event-source
 ```shell
 npm install @microsoft/fetch-event-source
 ```
+
+```shell
+npm install swr
+```
