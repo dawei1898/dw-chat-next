@@ -66,7 +66,7 @@ const ChatBubble = ({
         // AI 气泡
         return (
             <div className="flex items-start mb-4">
-                <Avatar className="mr-3 flex-shrink-0">
+                <Avatar className="mr-3 flex-shrink-0 ring-1 shrink-0 ring-border p-1">
                     <AvatarImage src={avatarSrc} alt="AI Avatar"/>
                     <AvatarFallback>
                         {/*<Bot size={20}/>*/}
