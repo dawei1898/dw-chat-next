@@ -72,7 +72,7 @@ npm install tw-animate-css
 
 添加组件
 ```shell
-npx shadcn@latest add dialog
+npx shadcn@latest add label
 ```
 
 安装 主题
