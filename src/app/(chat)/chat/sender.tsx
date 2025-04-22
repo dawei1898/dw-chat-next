@@ -7,6 +7,10 @@ import {ArrowUp, Atom, Paperclip} from "lucide-react";
 import {GlobeIcon, StopIcon} from "@/components/icons";
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
 
+
+/**
+ * 发送框组件
+ */
 const Sender = () => {
     const [value, setValue] = useState<string>('');
     const [openReasoning, setOpenReasoning] = useState<boolean>(false);
@@ -24,13 +28,13 @@ const Sender = () => {
 
     return (
         <div
-            className="w-1/2 mx-auto mt-auto bg-background rounded-2xl
+            className="max-w-2xl w-full mt-auto bg-background rounded-2xl
                         outline-1 focus-within:outline-2 -outline-offset-1 focus-within:-outline-offset-2
                          outline-muted-foreground/50 focus-within:outline-primary"
         >
             {/* 输入框 */}
             <Textarea
-                className="max-h-[150px] border-none shadow-none resize-none focus-visible:ring-transparent"
+                className="max-h-[150px] border-none shadow-none resize-none focus-visible:ring-transparent mt-1"
                 placeholder="请输入你的问题..."
                 value={value}
                 onChange={(e) => {
@@ -49,11 +53,11 @@ const Sender = () => {
                             onClick={() => setOpenReasoning(!openReasoning)}
                         >
                             <Atom/>
-                            <span>深度思考</span>
+                            <span className='text-sm'>深度思考</span>
                         </Button>
                     </TooltipTrigger>
                     {!openReasoning ?
-                        <TooltipContent>
+                        <TooltipContent side='left'>
                             <span className='text-primary-foreground'>
                                 先思考后回答，解决推理问题
                             </span>
@@ -75,7 +79,7 @@ const Sender = () => {
                         </Button>
                     </TooltipTrigger>
                     {!openSearch ?
-                        <TooltipContent>
+                        <TooltipContent side='right'>
                             <span className='text-primary-foreground'>
                                 按需搜索网页
                             </span>
@@ -137,7 +141,7 @@ const Sender = () => {
                                 <StopIcon/>
                             </Button>
                         </TooltipTrigger>
-                        <TooltipContent>
+                        <TooltipContent >
                             <span className='text-primary-foreground'>停止</span>
                         </TooltipContent>
                     </Tooltip>

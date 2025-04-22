@@ -1,3 +1,4 @@
+
 export const GithubIcon = ({size = 16}: { size?: number }) => {
   return (
       <svg
@@ -461,7 +462,7 @@ export const CheckedCircle = ({ size = 16 }: { size?: number }) => {
           fill="currentColor"
           height={size}
           width={size}
-          style={{color: 'green'}}
+          style={{color: '#52c41a'}}
       >
         <path
             fillRule="evenodd"
