@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from "next/image";
 import {useSidebar} from "@/components/ui/sidebar";
+import {appConfig} from "@/utils/app-config";
 
 const Logo = () => {
     const {open} = useSidebar();
@@ -18,7 +19,7 @@ const Logo = () => {
             {open &&
                 <span
                     className='dark:invert text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-500'>
-                Dw Chat Next
+                {appConfig.appName}
                 </span>
             }
 

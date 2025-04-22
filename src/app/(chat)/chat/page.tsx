@@ -11,18 +11,21 @@ import ChatSidebar from './chat-sidebar';
 import ChatSidebarTrigger from './chat-sidebar-trigger';
 import Sender from './sender';
 import {ChatExample} from "@/app/(chat)/chat/chat-bubble";
+import {useAuth} from "@/components/provider/auth-provider";
+import {useRouter} from "next/navigation";
 
-const SidebarDemo = ({children}: { children: React.ReactNode }) => {
-    //const [open, setOpen] = useState<boolean>(true)
-
-    //const cookieStore = await cookies()
-    //const defaultOpen: boolean = cookieStore.get("sidebar_state")?.value === "true"
-
+const ChatPage = () => {
+    const {isLogin} = useAuth();
+    const router = useRouter();
     const messagesEndRef = useRef<HTMLDivElement>(null)
 
-    const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-    }
+    /*useEffect(() => {
+        if (!isLogin) {
+            console.log('未登录，跳转到登录页')
+            router.push('/login')
+        }
+    }, []);*/
+
 
     useEffect(() => {
         scrollToBottom()
@@ -31,16 +34,16 @@ const SidebarDemo = ({children}: { children: React.ReactNode }) => {
         //[messages, aiTyping]
     )
 
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    }
+
     // @ts-ignore
     return (
         <SidebarProvider
             style={{
                 // "--sidebar-width": "10rem", // 侧边栏宽度
             }}
-            //defaultOpen={open} // 默认打开状态
-            //open={open}
-            //onOpenChange={setOpen}
-
         >
             <ChatSidebar/>
 
@@ -86,4 +89,4 @@ const SidebarDemo = ({children}: { children: React.ReactNode }) => {
     );
 };
 
-export default SidebarDemo;
+export default ChatPage;

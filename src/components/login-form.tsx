@@ -1,3 +1,5 @@
+'use client'
+
 import {cn} from "@/lib/utils"
 import {Button} from "@/components/ui/button"
 import {
@@ -9,11 +11,30 @@ import {
 } from "@/components/ui/card"
 import {Input} from "@/components/ui/input"
 import {Label} from "@/components/ui/label"
+import {useAuth} from "@/components/provider/auth-provider";
+import {useRouter} from "next/navigation";
 
 export function LoginForm({
                               className,
                               ...props
                           }: React.ComponentProps<"div">) {
+
+    const {login} = useAuth();
+    const router = useRouter();
+
+    // 执行登录操作
+    const handleSubmit = async (fromData: FormData) => {
+        const username = fromData.get('username') as string;
+        const password = fromData.get('password') as string;
+
+        const user = await login(username, password);
+        if (user) {
+            console.log('登录成功')
+            router.push('/')
+        } else {
+            console.log('登录失败')
+        }
+    }
 
     return (
         <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -25,13 +46,14 @@ export function LoginForm({
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <form>
+                    <form action={handleSubmit}>
                         <div className="flex flex-col gap-6">
                             <div className="grid gap-3">
                                 <Label htmlFor="username">Username</Label>
                                 <Input
                                     id="username"
                                     type="username"
+                                    name="username"
                                     placeholder="dawei"
                                     required
                                 />
@@ -46,7 +68,13 @@ export function LoginForm({
                                         Forgot your password?
                                     </a>
                                 </div>
-                                <Input id="password" type="password" placeholder="123456" required/>
+                                <Input
+                                    id="password"
+                                    type="password"
+                                    name="password"
+                                    placeholder="123456"
+                                    required
+                                />
                             </div>
                             <div className="flex flex-col gap-3">
                                 <Button type="submit" className="w-full">

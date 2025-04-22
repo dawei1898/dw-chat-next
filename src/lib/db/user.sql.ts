@@ -12,22 +12,36 @@ export async function selectUsers(): Promise<Array<User>> {
     }
 }
 
-export async function insertUser(data: {name: string, email?: string, password?: string}): Promise<number | null> {
+export async function selectUserByName(name: string): Promise<User | undefined> {
     try {
-         const {rowCount} = await db.insert(user)
-             .values({
-                 name: data.name,
-                 email: data.email,
-                 password: data.password
-             });
-         return rowCount;
+        return await db.query.user.findFirst({where: eq(user.name, name)});
+    } catch (error) {
+        console.error('Failed to selectUserByName.', error);
+        throw error;
+    }
+}
+
+export async function insertUser(data: { name: string, email?: string, password?: string }): Promise<number | null> {
+    try {
+        const {rowCount} = await db.insert(user)
+            .values({
+                name: data.name,
+                email: data.email,
+                password: data.password
+            });
+        return rowCount;
     } catch (error) {
         console.error('Failed to insertUser.', error);
         throw error;
     }
 }
 
-export async function updateUserById(data: {id: bigint, name: string, email?: string, password?: string}): Promise<number | null> {
+export async function updateUserById(data: {
+    id: bigint,
+    name: string,
+    email?: string,
+    password?: string
+}): Promise<number | null> {
     try {
         const {rowCount} = await db.update(user)
             .set({
