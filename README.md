@@ -80,11 +80,6 @@ npx shadcn@latest add label
 npm install next-themes
 ```
 
-安装 openai
-```shell
-npm install openai
-```
-
 安装 markdown-it
 ```shell
 npm install markdown-it --save
@@ -112,4 +107,38 @@ npm install use-immer
 客户端 Cookie
 ```shell
 npm install js-cookie @types/js-cookie
+```
+
+
+PostgreSQL 数据库驱动
+
+```shell
+npm install pg
+npm install --save-dev @types/pg
+```
+
+数据库连接工具 drizzle
+```shell
+npm install drizzle-orm
+```
+
+用于迁移和工具
+```shell
+npm install drizzle-kit --save-dev 
+```
+
+雪花算法
+```shell
+npm install snowflake-uid --save
+```
+
+openai 客户端
+```shell
+npm install openai
+```
+
+
+SSE 请求工具 fetch-event-source
+```shell
+npm install @microsoft/fetch-event-source
 ```
