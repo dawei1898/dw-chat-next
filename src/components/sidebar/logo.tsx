@@ -8,7 +8,7 @@ const Logo = () => {
     const {open} = useSidebar();
 
     return (
-        <Link href={'/'}>
+        <Link href={'/public'}>
             <div className={`flex gap-3 justify-start items-center mx-auto cursor-pointer  ${open ? 'w-7/8' : ''}`}>
                 <Image
                     className="dark:invert"

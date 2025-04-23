@@ -18,8 +18,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {MoreHorizontal} from "lucide-react";
 
-import MenuEditItem from "@/app/(chat)/chat/menu-edit-item";
-import MenuDeleteItem from "@/app/(chat)/chat/menu-delete-item";
+import MenuEditItem from "@/components/sidebar/menu-edit-item";
+import MenuDeleteItem from "@/components/sidebar/menu-delete-item";
 import {ScrollArea} from "@/components/ui/scroll-area";
 import {useParams, usePathname, useRouter} from "next/navigation";
 import useSWR from "swr";

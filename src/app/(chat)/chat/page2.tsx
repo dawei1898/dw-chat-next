@@ -7,8 +7,8 @@ import {
 } from "@/components/ui/sidebar";
 import {Separator} from "@/components/ui/separator";
 import {ScrollArea} from "@/components/ui/scroll-area";
-import ChatSidebar from './chat-sidebar';
-import ChatSidebarTrigger from './chat-sidebar-trigger';
+import ChatSidebar from '@/components/sidebar/chat-sidebar';
+import ChatSidebarTrigger from '@/components/sidebar/chat-sidebar-trigger';
 import ChatSender from './chat-sender';
 import {ChatExample} from "@/app/(chat)/chat/chat-bubble";
 import {useAuth} from "@/components/provider/auth-provider";

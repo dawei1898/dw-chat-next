@@ -10,7 +10,7 @@ import {
 import {GithubIcon, UserIcon} from "@/components/icons";
 import {BadgeCheck, ChevronsUpDown, LogOut, Settings} from "lucide-react";
 import Link from "next/link";
-import ThemeToggle from "@/app/(chat)/chat/theme-toggle";
+import ThemeToggle from "@/components/sidebar/theme-toggle";
 import {LoginUser} from "@/types/user";
 
 const NavFooter = ({user}: {user?: LoginUser}) => {

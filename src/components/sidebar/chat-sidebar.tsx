@@ -10,10 +10,10 @@ import {
     SidebarMenuItem,
     SidebarRail,
 } from "@/components/ui/sidebar";
-import Logo from "@/app/(chat)/chat/logo";
-import Conversations from "@/app/(chat)/chat/conversations";
-import NavFooter from "@/app/(chat)/chat/nav-footer";
-import AddConversation from "@/app/(chat)/chat/add-conversation";
+import Logo from "@/components/sidebar/logo";
+import Conversations from "@/components/sidebar/conversations";
+import NavFooter from "@/components/sidebar/nav-footer";
+import AddConversation from "@/components/sidebar/add-conversation";
 import {LoginUser} from "@/types/user";
 
 

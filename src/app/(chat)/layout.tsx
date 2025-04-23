@@ -1,5 +1,5 @@
 import React from "react";
-import ChatSidebar from "@/app/(chat)/chat/chat-sidebar";
+import ChatSidebar from "@/components/sidebar/chat-sidebar";
 import {SidebarInset, SidebarProvider} from "@/components/ui/sidebar";
 import {getUserCookieAction} from "@/app/(auth)/actions";
 import {LoginUser} from "@/types/user";

@@ -1,5 +1,5 @@
 import React from 'react';
-import ChatSidebarTrigger from "@/app/(chat)/chat/chat-sidebar-trigger";
+import ChatSidebarTrigger from "@/components/sidebar/chat-sidebar-trigger";
 
 /**
  * 聊天页面头部
