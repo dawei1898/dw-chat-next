@@ -37,7 +37,7 @@ export async function insertUser(data: { name: string, email?: string, password?
 }
 
 export async function updateUserById(data: {
-    id: bigint,
+    id: string,
     name: string,
     email?: string,
     password?: string
@@ -58,7 +58,7 @@ export async function updateUserById(data: {
     }
 }
 
-export async function deleteUserById(id: bigint): Promise<number | null> {
+export async function deleteUserById(id: string): Promise<number | null> {
     try {
         const {rowCount} = await db.delete(user).where(eq(user.id, id));
         return rowCount;

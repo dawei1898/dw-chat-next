@@ -4,7 +4,7 @@ import {Button} from "@/components/ui/button";
 import {ThumbsUp, ThumbsDown, Copy, Bot, User, ChevronDown, ChevronUp, Atom} from 'lucide-react';
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
 import MarkdownRender from "@/app/(chat)/chat/markdown-render";
-import {CheckedCircle, DeepSeekIcon} from "@/components/icons";
+import {DeepSeekIcon} from "@/components/icons";
 import {toast} from "sonner";
 
 interface ChatBubbleProps {
@@ -113,9 +113,7 @@ const ChatBubble = ({
                                             size="icon"
                                             className="h-6 w-6 cursor-pointer"
                                             onClick={() => {
-                                                toast("感谢您的支持", {
-                                                    icon: (<CheckedCircle/>),
-                                                })
+                                                toast.success("感谢您的支持")
                                                 onLike();
                                             }}
                                         >
@@ -135,9 +133,7 @@ const ChatBubble = ({
                                             size="icon"
                                             className="h-6 w-6 cursor-pointer"
                                             onClick={() => {
-                                                toast("感谢您的反馈", {
-                                                    icon: (<CheckedCircle/>),
-                                                })
+                                                toast.success("感谢您的反馈")
                                                 onDislike();
                                             }}
                                         >
@@ -161,9 +157,7 @@ const ChatBubble = ({
                                                 navigator.clipboard.writeText(content);
                                                 if (onCopy) onCopy();
 
-                                                toast("已复制", {
-                                                    icon: (<CheckedCircle/>),
-                                                })
+                                                toast.success("已复制")
                                             }}>
                                             <Copy size={14}/>
                                         </Button>

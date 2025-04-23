@@ -53,7 +53,7 @@ const ChatSidebar = (props: ChatSidebarProps) => {
 
             <SidebarContent className='not-dark:bg-slate-50'>
                 {/* 会话列表 */}
-                <Conversations/>
+                <Conversations user={props.user}/>
             </SidebarContent>
 
             {/* 边栏底部 */}

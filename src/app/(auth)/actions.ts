@@ -30,13 +30,17 @@ export async function loginAction(username: string, password: string) {
     // 生成 token
     const token = mockToken();
 
-    // 使用 cookies 存储登录信息
-    await setUserCookieAction(username, token)
-
-    return {
-        username: username,
+    const loginUser: LoginUser = {
+        userId: user.id,
+        username: user.name,
         token: token
-    };
+    }
+    console.log('loginUser:', JSON.stringify(loginUser))
+
+    // 使用 cookies 存储登录信息
+    await setUserCookieAction(loginUser)
+
+    return loginUser;
 }
 
 /**
@@ -50,13 +54,12 @@ export async function logoutAction() {
 /**
  * 储存登录用户信息到 cookie
  *
- * @param username
- * @param token
+ * @param loginUser
  */
-export async function setUserCookieAction(username: string, token: string) {
+export async function setUserCookieAction(loginUser: LoginUser) {
     const cookie = await cookies();
     cookie.set(COOKIE_USER,
-        JSON.stringify({username, token}),
+        JSON.stringify(loginUser),
         {
             path: '/',
             httpOnly: false, // ❗必须为 false，客户端才能读取
@@ -87,7 +90,7 @@ export async function getUserCookieAction() {
         const userCookie = cookie.get(COOKIE_USER);
         if (userCookie) {
             const user: LoginUser = JSON.parse(userCookie.value);
-            console.log('获取登录用户信息')
+            console.log('获取登录用户信息: ', user.userId)
             return user
         }
     } catch (e) {

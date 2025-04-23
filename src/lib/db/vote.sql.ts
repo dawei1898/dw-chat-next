@@ -25,7 +25,7 @@ export async function selectVoteByMsgIds(msgIds: bigint[]): Promise<Array<Vote>>
 }
 
 export async function insertVote(data: {
-    msgId: bigint, voteType: string, userId: bigint
+    msgId: string, voteType: string, userId: string
 }): Promise<number | null> {
     try {
         const {rowCount} = await db.insert(vote)
@@ -42,10 +42,10 @@ export async function insertVote(data: {
 }
 
 export async function updateVoteById(data: {
-    id: bigint,
-    msgId: bigint,
+    id: string,
+    msgId: string,
     voteType: string,
-    userId?: bigint
+    userId?: string
 }): Promise<number | null> {
     try {
         const {rowCount} = await db.update(vote)
@@ -62,7 +62,7 @@ export async function updateVoteById(data: {
     }
 }
 
-export async function deleteVoteById(id: bigint): Promise<number | null> {
+export async function deleteVoteById(id: string): Promise<number | null> {
     try {
         const {rowCount} = await db.delete(vote).where(eq(vote.id, id));
         return rowCount;

@@ -16,8 +16,8 @@ import {InferSelectModel} from "drizzle-orm";
  * 用户表
  */
 export const user = pgSchema('dwc').table('user', {
-    id: bigint('id', {mode: 'bigint'}).primaryKey().$defaultFn(() => {
-        return BigInt(snowflake.generate());
+    id: varchar('id', {length: 64}).primaryKey().$defaultFn(() => {
+        return snowflake.generate().toString();
     }),
     name: varchar('name', {length: 255}).notNull(),
     email: varchar('email', {length: 255}),
@@ -35,7 +35,7 @@ export type User = InferSelectModel<typeof user>;
 export const chat = pgSchema('dwc').table('chat', {
     chatId: uuid('chat_id').primaryKey().notNull().defaultRandom(),
     chatName: varchar('chat_name', {length: 255}).notNull(),
-    userId: bigint('user_id', {mode: 'bigint'}),
+    userId: varchar('user_id', {length: 64}),
     createdAt: timestamp('created_at', {withTimezone: false}).defaultNow(),
     updatedAt: timestamp('updated_at', {withTimezone: false}).defaultNow(),
 });
@@ -47,8 +47,8 @@ export type Chat = InferSelectModel<typeof chat>;
  * 对话消息表
  */
 export const message = pgSchema('dwc').table('message', {
-    msgId: bigint('msg_id', {mode: 'bigint'}).primaryKey().$defaultFn(() => {
-        return BigInt(snowflake.generate());
+    msgId: varchar('msg_id', {length: 64}).primaryKey().$defaultFn(() => {
+        return snowflake.generate().toString();
     }),
     rawMsgId: varchar('raw_msg_id', {length: 64}),
     chatId: varchar('chat_id', {length: 64}).notNull(),
@@ -57,7 +57,7 @@ export const message = pgSchema('dwc').table('message', {
     reasoningContent: text('reasoning_content'),
     tokens: integer('tokens'),
     modelId: varchar('model_id', {length: 128}),
-    userId: bigint('user_id', {mode: 'bigint'}),
+    userId: varchar('user_id', {length: 64}),
     createdAt: timestamp('created_at', {withTimezone: false}).defaultNow(),
 });
 
@@ -68,12 +68,12 @@ export type Message = InferSelectModel<typeof message>;
  * 消息评论表
  */
 export const vote = pgSchema('dwc').table('vote', {
-    id: bigint('id', {mode: 'bigint'}).primaryKey().$defaultFn(() => {
-        return BigInt(snowflake.generate());
+    id: varchar('id', {length: 64}).primaryKey().$defaultFn(() => {
+        return snowflake.generate().toString();
     }),
-    msgId: bigint('msg_id', {mode: 'bigint'}).notNull(),
+    msgId: varchar('msg_id', {length: 64}).notNull(),
     voteType: varchar('vote_type', {length: 8}),
-    userId: bigint('user_id', {mode: 'bigint'}),
+    userId: varchar('user_id', {length: 64}),
     createdAt: timestamp('created_at', {withTimezone: false}).defaultNow(),
 });
 

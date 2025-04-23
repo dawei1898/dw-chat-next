@@ -12,8 +12,19 @@ export async function selectChats(): Promise<Array<Chat>> {
     }
 }
 
+export async function selectChatsByUserId(userId: string): Promise<Array<Chat>> {
+    try {
+        return await db.select().from(chat)
+            .where(eq(chat.userId, userId))
+            .orderBy(desc(chat.createdAt));
+    } catch (error) {
+        console.error('Failed to selectChatsByUserId.', error);
+        throw error;
+    }
+}
+
 export async function insertChat(data: {
-    chatName: string, userId?: bigint
+    chatName: string, userId?: string
 }): Promise<number | null> {
     try {
         const {rowCount} = await db.insert(chat)
@@ -31,7 +42,7 @@ export async function insertChat(data: {
 export async function updateChatById(data: {
     chatId: string,
     chatName: string,
-    userId?: bigint
+    userId?: string
 }): Promise<number | null> {
     try {
         const {rowCount} = await db.update(chat)

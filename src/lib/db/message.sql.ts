@@ -33,14 +33,14 @@ export async function insertMessage(data: {
     reasoningContent?: string,
     tokens?: number,
     modelId?: string,
-    userId?: bigint
+    userId?: string
 }): Promise<number | null> {
     const {rowCount} = await db.insert(message).values(data)
     return rowCount;
 }
 
 
-export async function deleteMessageById(msgId: bigint): Promise<number | null> {
+export async function deleteMessageById(msgId: string): Promise<number | null> {
     const {rowCount} = await db.delete(message).where(eq(message.msgId, msgId));
     return rowCount;
 }

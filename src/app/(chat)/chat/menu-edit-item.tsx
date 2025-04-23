@@ -12,8 +12,17 @@ import {Edit} from "lucide-react";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 
-const MenuEditItem = () => {
+
+interface MenuDeleteItemProps {
+    chatId: string;
+    chatName: string;
+    onEdit?: (chatId: string, chatName: string) => void;
+}
+
+const MenuEditItem = (props: MenuDeleteItemProps) => {
     const [isOpen, setIsOpen] = React.useState(false);
+
+    let newValue = '';
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -31,7 +40,14 @@ const MenuEditItem = () => {
                     <DialogTitle>重命名会话</DialogTitle>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
-                    <Input id="name" defaultValue="Pedro Duarte" className="col-span-3" />
+                    <Input
+                        id="chatName"
+                        className="col-span-3"
+                        defaultValue={props.chatName}
+                        onChange={(e) => {
+                            newValue = e.target.value;
+                        }}
+                         />
                 </div>
                 <DialogFooter>
                     <Button
@@ -43,7 +59,10 @@ const MenuEditItem = () => {
                     </Button>
                     <Button
                         className='cursor-pointer'
-                        onClick={() => setIsOpen(false)}
+                        onClick={() => {
+                            if (props.onEdit) props.onEdit(props.chatId, newValue);
+                            setIsOpen(false);
+                        }}
                     >
                         确定
                     </Button>

@@ -11,7 +11,13 @@ import {DropdownMenuItem} from "@/components/ui/dropdown-menu";
 import {Trash2} from "lucide-react";
 import {Button} from "@/components/ui/button";
 
-const MenuDeleteItem = () => {
+
+interface MenuDeleteItemProps {
+    chatId: string;
+    onDelete?: (chatId: string) => void;
+}
+
+const MenuDeleteItem = (props: MenuDeleteItemProps) => {
     const [isOpen, setIsOpen] = React.useState(false);
 
     return (
@@ -44,7 +50,13 @@ const MenuDeleteItem = () => {
                         className='cursor-pointer'
                         type="submit"
                         variant='destructive'
-                        onClick={() => setIsOpen(false)}
+                        onClick={() => {
+                            if (props.onDelete) {
+                                props.onDelete(props.chatId);
+                            }
+                            setIsOpen(false)
+                        }
+                    }
                     >
                         删除
                     </Button>
