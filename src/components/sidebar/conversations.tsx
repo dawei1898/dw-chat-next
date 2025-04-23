@@ -35,7 +35,7 @@ import {ApiResponse} from "@/types";
  *
  */
 const ConversationsPage = ({user}: { user: LoginUser | undefined }) => {
-    console.log('ConversationsPage')
+    //console.log('ConversationsPage')
 
     const {id: chatId} = useParams();
     const pathname = usePathname();

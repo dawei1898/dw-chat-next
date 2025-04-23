@@ -1,6 +1,6 @@
 import {db} from "@/lib/db/db";
 import {Vote, vote} from "@/lib/db/schema";
-import {eq, sql} from "drizzle-orm";
+import {eq, inArray, sql} from "drizzle-orm";
 
 
 export async function selectVotes(): Promise<Array<Vote>> {
@@ -12,15 +12,18 @@ export async function selectVotes(): Promise<Array<Vote>> {
     }
 }
 
-export async function selectVoteByMsgIds(msgIds: bigint[]): Promise<Array<Vote>> {
+export async function selectVoteByMsgIds(msgIds: string[]): Promise<Vote[]> {
+    if (!msgIds?.length) {
+        console.warn('Empty msgIds array provided');
+        return [];
+    }
     try {
-        return await db.select().from(vote)
-            .where(
-                sql`msg_id in ( ${msgIds} )`
-            );
+        return await db.select()
+            .from(vote)
+            .where(inArray(vote.msgId, msgIds));
     } catch (error) {
-        console.error('Failed to selectVotes.', error);
-        throw error;
+        console.error('Failed to select votes for msgIds:', msgIds, error);
+        throw new Error(`Failed to fetch votes: ${error instanceof Error ? error.message : String(error)}`);
     }
 }
 
@@ -62,12 +65,12 @@ export async function updateVoteById(data: {
     }
 }
 
-export async function deleteVoteById(id: string): Promise<number | null> {
+export async function deleteVoteByMsgId(msgId: string): Promise<number | null> {
     try {
-        const {rowCount} = await db.delete(vote).where(eq(vote.id, id));
+        const {rowCount} = await db.delete(vote).where(eq(vote.msgId, msgId));
         return rowCount;
     } catch (error) {
-        console.error('Failed to deleteVoteById.', error);
+        console.error('Failed to deleteVoteByMsgId.', error);
         throw error;
     }
 }

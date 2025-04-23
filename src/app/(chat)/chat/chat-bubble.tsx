@@ -1,19 +1,24 @@
+'use client';
+
 import React, {useState} from 'react';
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {Button} from "@/components/ui/button";
 import {ThumbsUp, ThumbsDown, Copy, Bot, User, ChevronDown, ChevronUp, Atom} from 'lucide-react';
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
 import MarkdownRender from "@/app/(chat)/chat/markdown-render";
-import {DeepSeekIcon} from "@/components/icons";
+import {DeepSeekIcon, ThumbUpIcon} from "@/components/icons";
 import {toast} from "sonner";
+import {VoteType} from "@/types/message";
 
 interface ChatBubbleProps {
+    msgId: string;
     role: 'user' | 'ai';
     content: string;   // 回答内容
     reasoningContent?: string; // 思考内容
     avatarSrc?: string;
-    onLike?: () => void;
-    onDislike?: () => void;
+    voteType?: VoteType;
+    onLike?: (msgId: string, voteType: string) => void;
+    onDislike?: (msgId: string, voteType: string) => void;
     onCopy?: () => void;
 }
 
@@ -24,24 +29,28 @@ interface ChatBubbleProps {
  * @param content
  * @param reasoningContent
  * @param avatarSrc
+ * @param voteType
  * @param onLike
  * @param onDislike
  * @param onCopy
  * @constructor
  */
 const ChatBubble = ({
+                        msgId,
                         role,
                         content,
                         reasoningContent = '',
                         avatarSrc = '',
+                        voteType = '',
                         onLike,
                         onDislike,
                         onCopy,
                     }: ChatBubbleProps) => {
 
     const isUser = role === 'user';
-    const [openReasoning, setOpenReasoning] = useState<boolean>(false);
+    const [openReasoning, setOpenReasoning] = useState<boolean>(true);
     const [loading, setLoading] = useState<boolean>(false);
+    const [vote, setVote] = useState(voteType)
 
     const toggleThinking = () => {
         setOpenReasoning(!openReasoning);
@@ -54,12 +63,12 @@ const ChatBubble = ({
                 <div className="max-w-[75%] bg-secondary text-secondary-foreground rounded-lg p-2">
                     <span className='text-sm'>{content}</span>
                 </div>
-                {avatarSrc &&
+                {/*{avatarSrc &&
                     <Avatar className="ml-3">
                         <AvatarImage src={avatarSrc} alt="Uer Avatar"/>
                         <AvatarFallback><User size={20}/></AvatarFallback>
                     </Avatar>
-                }
+                }*/}
             </div>
         );
     } else {
@@ -113,11 +122,16 @@ const ChatBubble = ({
                                             size="icon"
                                             className="h-6 w-6 cursor-pointer"
                                             onClick={() => {
+                                                const newVote = vote === 'up' ? '' : 'up'
+                                                setVote(newVote)
+                                                onLike(msgId, newVote);
                                                 toast.success("感谢您的支持")
-                                                onLike();
                                             }}
                                         >
-                                            <ThumbsUp size={14}/>
+                                            {vote === 'up'
+                                                ? <ThumbsUp size={14} fill='gray'/>
+                                                : <ThumbsUp size={14}/>
+                                            }
                                         </Button>
                                     </TooltipTrigger>
                                     <TooltipContent>
@@ -133,11 +147,16 @@ const ChatBubble = ({
                                             size="icon"
                                             className="h-6 w-6 cursor-pointer"
                                             onClick={() => {
+                                                const newVote = vote === 'down' ? '' : 'down'
+                                                setVote(newVote)
+                                                onDislike(msgId, newVote);
                                                 toast.success("感谢您的反馈")
-                                                onDislike();
                                             }}
                                         >
-                                            <ThumbsDown size={14}/>
+                                            {vote === 'down'
+                                                ? <ThumbsDown size={14} fill='gray'/>
+                                                : <ThumbsDown size={14}/>
+                                            }
                                         </Button>
                                     </TooltipTrigger>
                                     <TooltipContent>
@@ -182,8 +201,9 @@ export default ChatBubble;
 export function ChatExample() {
     return (
         <div className=" space-y-4">
-            <ChatBubble role="user" content="你是谁"/>
+            <ChatBubble msgId={'1'} role="user" content="你是谁"/>
             <ChatBubble
+                msgId={'2'}
                 role="ai"
                 reasoningContent="分析用户问题：用户想知道我的身份信息。我应该提供我的名称、开发公司以及基本功能介绍。"
                 content="您好! 我是由中国的深度求索 (DeepSeek) 公司开发的智能助手DeepSeek-R1。如您有任何问题, 我会尽我所能为您提供帮助。"
@@ -193,6 +213,7 @@ export function ChatExample() {
                 onCopy={() => console.log('Copied')}
             />
             <ChatBubble
+                msgId={'3'}
                 role={'ai'}
                 avatarSrc={'deepseek.svg'}
                 content={'以下是用 Java 输出 "你好" 的简单代码示例：\n' +
