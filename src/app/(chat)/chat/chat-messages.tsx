@@ -11,7 +11,10 @@ import {ApiResponse} from "@/types";
 
 interface ChatMessagesProps {
     chatId?: string,
-    initMessages?: MessageVo[],
+    messages?: MessageVo[],
+    //setMessages: (messages: MessageVo[] | ((messages: MessageVo[]) => MessageVo[])) => void;
+    onLike?: (msgId: string, voteType: string) => void;
+    onDislike?: (msgId: string, voteType: string) => void;
 }
 
 /**
@@ -21,16 +24,13 @@ interface ChatMessagesProps {
  * @constructor
  */
 const ChatMessages = (props: ChatMessagesProps) => {
+    console.log('ChatMessages，messages:', JSON.stringify(props.messages))
     const messagesEndRef = useRef<HTMLDivElement>(null)
-    const [messages, setMessages] = useState<MessageVo[] | undefined>(props.initMessages)
-    const [chatId, setChatId] = useState<string>(props.chatId || '')
-
 
     useEffect(() => {
             scrollToBottom()
         },
-        []
-        //[messages, aiTyping]
+        [props.messages]
     )
 
     const scrollToBottom = () => {
@@ -38,40 +38,33 @@ const ChatMessages = (props: ChatMessagesProps) => {
     }
 
 
-    // 喜欢
-    const handleSaveVote = async (msgId: string, voteType: string) => {
-        const resp: ApiResponse = await fetch(`/api/vote`, {
-            method: 'POST',
-            body: JSON.stringify({msgId, voteType})
-        }).then(r => r.json());
-
-        if (resp.code === 200) {
-            console.log('点喜欢成功')
-
-        } else {
-            console.error('点喜欢失败')
-        }
-    }
-
-    // 不喜欢
-
     return (<>
         <ScrollArea className={'h-12/15 w-full my-2'}>
             <div className="h-full max-w-2xl  mx-auto space-y-4">
-                {messages && messages.map((item) => (
+                {props.messages && props.messages.map((item) => (
                     <ChatBubble
                         key={item.msgId}
                         msgId={item.msgId}
                         role={item.role === 'user' ? 'user' : 'ai'}
                         reasoningContent={item.reasoningContent || ''}
                         content={item.content}
-                        avatarSrc={'deepseek.svg'}
                         voteType={item.voteType}
-                        onLike={handleSaveVote}
-                        onDislike={handleSaveVote}
+                        loading={item.loading}
+                        onLike={props.onLike}
+                        onDislike={props.onDislike}
                         onCopy={() => console.log('Copied')}
                     />
                 ))}
+
+               {/* <ChatBubble
+                    key={2}
+                    msgId={'1'}
+                    role={'ai'}
+                    reasoningContent={''}
+                    content={''}
+                    avatarSrc={'deepseek.svg'}
+
+                />*/}
 
                 {/*{<ChatExample/>}
 

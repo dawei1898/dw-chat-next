@@ -3,12 +3,14 @@
 import React, {useState} from 'react';
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {Button} from "@/components/ui/button";
-import {ThumbsUp, ThumbsDown, Copy, Bot, User, ChevronDown, ChevronUp, Atom} from 'lucide-react';
+import {ThumbsUp, ThumbsDown, Copy, User, ChevronDown, ChevronUp, Atom} from 'lucide-react';
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
 import MarkdownRender from "@/app/(chat)/chat/markdown-render";
-import {DeepSeekIcon, ThumbUpIcon} from "@/components/icons";
+import {DeepSeekIcon} from "@/components/icons";
 import {toast} from "sonner";
 import {VoteType} from "@/types/message";
+import {Loading} from "@/components/loading";
+
 
 interface ChatBubbleProps {
     msgId: string;
@@ -17,6 +19,7 @@ interface ChatBubbleProps {
     reasoningContent?: string; // 思考内容
     avatarSrc?: string;
     voteType?: VoteType;
+    loading?: boolean;
     onLike?: (msgId: string, voteType: string) => void;
     onDislike?: (msgId: string, voteType: string) => void;
     onCopy?: () => void;
@@ -30,6 +33,7 @@ interface ChatBubbleProps {
  * @param reasoningContent
  * @param avatarSrc
  * @param voteType
+ * @param loading
  * @param onLike
  * @param onDislike
  * @param onCopy
@@ -42,6 +46,7 @@ const ChatBubble = ({
                         reasoningContent = '',
                         avatarSrc = '',
                         voteType = '',
+                        loading,
                         onLike,
                         onDislike,
                         onCopy,
@@ -49,7 +54,6 @@ const ChatBubble = ({
 
     const isUser = role === 'user';
     const [openReasoning, setOpenReasoning] = useState<boolean>(true);
-    const [loading, setLoading] = useState<boolean>(false);
     const [vote, setVote] = useState(voteType)
 
     const toggleThinking = () => {
@@ -75,17 +79,21 @@ const ChatBubble = ({
         // AI 气泡
         return (
             <div className="flex items-start mb-4">
+                {/* AI 头像 */}
                 <div
                     className="size-8 flex items-center justify-center rounded-full mr-3 ring-1 shrink-0 ring-border bg-background">
                     <DeepSeekIcon size={25}/>
                 </div>
                 <div className="flex flex-col w-full max-w-[95%]">
+                    {/* Loading */}
+                    {(!reasoningContent && !content) && <Loading className='mr-auto'/> }
+
                     {/* 思考内容 */}
                     {reasoningContent && (
                         <div className="mb-3">
                             <Button
                                 variant='secondary'
-                                className="flex items-center text-sm text-muted-foreground p-1 h-auto mb-1"
+                                className="flex items-center text-sm text-muted-foreground p-1 h-auto mb-3"
                                 onClick={toggleThinking}
                             >
                                 <Atom size={16} className="mr-2"/>
@@ -112,7 +120,7 @@ const ChatBubble = ({
                     )}
 
                     {/* 操作按钮 - 只在有消息时显示 */}
-                    {content && (
+                    {(content && !loading) && (
                         <div className="flex items-center space-x-2 mt-2 ml-2 text-muted-foreground">
                             {onLike && (
                                 <Tooltip>
@@ -185,7 +193,6 @@ const ChatBubble = ({
                                         <span className='text-primary-foreground'>复制</span>
                                     </TooltipContent>
                                 </Tooltip>
-
                             )}
                         </div>
                     )}

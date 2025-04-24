@@ -8,23 +8,33 @@ import {GlobeIcon, StopIcon} from "@/components/icons";
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
 
 
+
+interface ChatSenderProps {
+    value?: string;
+    onChangeValue?: (value: string) => void;
+    loading?: boolean;
+    onSubmit?: (message: string, openReasoning: boolean) => void;
+    onCancel?: () => void;
+}
+
 /**
  * 发送框组件
  */
-const ChatSender = () => {
-    const [value, setValue] = useState<string>('');
+const ChatSender = (props: ChatSenderProps) => {
+    const [input, setInput] = useState(props.value);
     const [openReasoning, setOpenReasoning] = useState<boolean>(false);
     const [openSearch, setOpenSearch] = useState<boolean>(false);
-    const [loading, setLoading] = useState<boolean>(false);
+    //const [loading, setLoading] = useState<boolean>(false);
 
-    const onSubmit = async (msg?: string) => {
-        setValue('');
+    // 发送
+    /*const onSubmit = async (msg?: string) => {
+        setInput('');
         return new Promise(() => {
             const timer = setTimeout(() => {
                 setLoading(false);
             }, 3000);
         });
-    }
+    }*/
 
     return (
         <div
@@ -36,9 +46,12 @@ const ChatSender = () => {
             <Textarea
                 className="max-h-[150px] border-none shadow-none resize-none focus-visible:ring-transparent mt-1"
                 placeholder="请输入你的问题..."
-                value={value}
+                value={input}
                 onChange={(e) => {
-                    setValue(e.target?.value)
+                    setInput(e.target.value)
+                    if (props.onChangeValue) {
+                        props.onChangeValue(e.target.value)
+                    }
                 }}
             >
             </Textarea>
@@ -104,7 +117,7 @@ const ChatSender = () => {
                     </TooltipContent>
                 </Tooltip>
 
-                {!loading ?
+                {!props.loading ?
                     /* 发送 */
                     <Tooltip>
                         <TooltipTrigger asChild>
@@ -112,10 +125,20 @@ const ChatSender = () => {
                                 className='h-7 w-7 rounded-full cursor-pointer active:bg-primary'
                                 size='icon'
                                 type='submit'
-                                disabled={value === '' && !loading}
+                                disabled={props.value === '' && !props.loading}
+                                onKeyDown={event => {
+                                    if (event.key === 'Enter') {
+                                        if (props.onSubmit && input) {
+                                            props.onSubmit(input, openReasoning)
+                                            setInput('')
+                                        }
+                                    }
+                                }}
                                 onClick={() => {
-                                    setLoading(true);
-                                    onSubmit(value);
+                                    if (props.onSubmit && input) {
+                                        props.onSubmit(input, openReasoning)
+                                        setInput('')
+                                    }
                                 }}
                             >
                                 <ArrowUp/>
@@ -134,7 +157,10 @@ const ChatSender = () => {
                                 className='h-7 w-7 rounded-full cursor-pointer active:bg-primary'
                                 size='icon'
                                 onClick={() => {
-                                    setLoading(false)
+                                    if (props.onCancel) {
+                                        props.onCancel
+                                    }
+                                    //setLoading(false)
                                 }}
 
                             >
