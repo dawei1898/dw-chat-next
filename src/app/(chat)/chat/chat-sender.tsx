@@ -26,16 +26,6 @@ const ChatSender = (props: ChatSenderProps) => {
     const [openSearch, setOpenSearch] = useState<boolean>(false);
     //const [loading, setLoading] = useState<boolean>(false);
 
-    // 发送
-    /*const onSubmit = async (msg?: string) => {
-        setInput('');
-        return new Promise(() => {
-            const timer = setTimeout(() => {
-                setLoading(false);
-            }, 3000);
-        });
-    }*/
-
     return (
         <div
             className="max-w-2xl w-full mt-auto mb-7 bg-background rounded-2xl
@@ -51,6 +41,17 @@ const ChatSender = (props: ChatSenderProps) => {
                     setInput(e.target.value)
                     if (props.onChangeValue) {
                         props.onChangeValue(e.target.value)
+                    }
+                }}
+                onKeyDown={event => {
+                    if (event.key === 'Enter' &&
+                        !event.shiftKey &&
+                        !event.nativeEvent.isComposing
+                    ) {
+                        if (props.onSubmit && input) {
+                            props.onSubmit(input, openReasoning)
+                            setInput('')
+                        }
                     }
                 }}
             >
@@ -126,14 +127,6 @@ const ChatSender = (props: ChatSenderProps) => {
                                 size='icon'
                                 type='submit'
                                 disabled={props.value === '' && !props.loading}
-                                onKeyDown={event => {
-                                    if (event.key === 'Enter') {
-                                        if (props.onSubmit && input) {
-                                            props.onSubmit(input, openReasoning)
-                                            setInput('')
-                                        }
-                                    }
-                                }}
                                 onClick={() => {
                                     if (props.onSubmit && input) {
                                         props.onSubmit(input, openReasoning)

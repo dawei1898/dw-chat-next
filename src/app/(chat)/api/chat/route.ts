@@ -26,19 +26,31 @@ export async function GET() {
  * 新增会话
  */
 export async function POST(request: NextRequest) {
-    const user = await getUserCookieAction();
+    try {
+        const user = await getUserCookieAction();
+        if (!user || !user.userId) {
+            console.log('没有登录，跳转到登录页')
+            //return NextResponse.json('Unauthorized!', { status: 401 })
+            redirect('/login')
+        }
 
-    if (!user || !user.userId) {
-        console.log('没有登录，跳转到登录页')
-        //return NextResponse.json('Unauthorized!', { status: 401 })
-        redirect('/login')
+        const {chatName} = await request.json();
+
+        const chatId = await insertChat({chatName: chatName, userId: user.userId});
+
+        return NextResponse.json({
+            code: 200,
+            message: 'success',
+            data: chatId
+        });
+    } catch (e: any) {
+        console.log('failed to insert chat, ', e)
+        return NextResponse.json({
+            code: 500,
+            message: 'insert chat fail.',
+            data: 0
+        });
     }
-
-    const {chatName} = await request.json();
-
-    const count = await insertChat({chatName: chatName, userId: user.userId});
-
-    return NextResponse.json({count: count});
 }
 
 /**

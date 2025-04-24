@@ -1,6 +1,7 @@
 import {db} from "@/lib/db/db";
 import {Chat, chat} from "@/lib/db/schema";
 import {desc, eq, sql} from "drizzle-orm";
+import {generateUUID} from "@/lib/utils";
 
 
 export async function selectChats(): Promise<Array<Chat>> {
@@ -25,14 +26,20 @@ export async function selectChatsByUserId(userId: string): Promise<Array<Chat>> 
 
 export async function insertChat(data: {
     chatName: string, userId?: string
-}): Promise<number | null> {
+}): Promise<string> {
     try {
+        const chatId = generateUUID();
         const {rowCount} = await db.insert(chat)
             .values({
+                chatId: chatId,
                 chatName: data.chatName,
                 userId: data.userId,
             });
-        return rowCount;
+        if (rowCount === 1) {
+            return chatId
+        } else {
+            return ''
+        }
     } catch (error) {
         console.error('Failed to insertChat.', error);
         throw error;

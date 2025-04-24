@@ -1,18 +1,14 @@
 'use client';
 
-import React, {useEffect, useRef, useState} from 'react';
-import ChatBubble, {ChatExample} from "@/app/(chat)/chat/chat-bubble";
+import React, {useEffect, useRef} from 'react';
 import {ScrollArea} from "@/components/ui/scroll-area";
-
+import ChatBubble from "@/app/(chat)/chat/chat-bubble";
 import {MessageVo} from "@/types/message";
-import {toast} from "sonner";
-import {ApiResponse} from "@/types";
 
 
 interface ChatMessagesProps {
     chatId?: string,
     messages?: MessageVo[],
-    //setMessages: (messages: MessageVo[] | ((messages: MessageVo[]) => MessageVo[])) => void;
     onLike?: (msgId: string, voteType: string) => void;
     onDislike?: (msgId: string, voteType: string) => void;
 }
@@ -24,7 +20,7 @@ interface ChatMessagesProps {
  * @constructor
  */
 const ChatMessages = (props: ChatMessagesProps) => {
-    console.log('ChatMessages，messages:', JSON.stringify(props.messages))
+    console.debug('ChatMessages，messages:', JSON.stringify(props.messages))
     const messagesEndRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
@@ -33,6 +29,7 @@ const ChatMessages = (props: ChatMessagesProps) => {
         [props.messages]
     )
 
+    // 滑动到底部
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({behavior: 'smooth'})
     }
@@ -55,16 +52,6 @@ const ChatMessages = (props: ChatMessagesProps) => {
                         onCopy={() => console.log('Copied')}
                     />
                 ))}
-
-               {/* <ChatBubble
-                    key={2}
-                    msgId={'1'}
-                    role={'ai'}
-                    reasoningContent={''}
-                    content={''}
-                    avatarSrc={'deepseek.svg'}
-
-                />*/}
 
                 {/*{<ChatExample/>}
 

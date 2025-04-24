@@ -10,6 +10,7 @@ import {MessageVo} from "@/types/message";
 import {ApiResponse} from "@/types";
 import {EventSourceMessage, fetchEventSource} from "@microsoft/fetch-event-source";
 import {snowflake} from "@/utils/snowflake";
+import {toast} from "sonner";
 
 
 interface ChatProps {
@@ -18,11 +19,12 @@ interface ChatProps {
 }
 
 const ChatPage = (props: ChatProps) => {
-    console.log('ChatPage')
+    console.debug('ChatPage')
     const [chatId, setChatId] = useState<string>(props.chatId || '');
     const [messages, setMessages] = useState<MessageVo[]>(props.initMessages || []);
-    const [loading, setLoading] = useState<boolean>(false);
     const [input, setInput] = useState('');
+    const [loading, setLoading] = useState<boolean>(false);
+
     const abortControllerRef = useRef<AbortController | null>(null);
 
     // 通过 useEffect 清理函数自动取消未完成的请求：
@@ -34,13 +36,40 @@ const ChatPage = (props: ChatProps) => {
         };
     }, []);
 
+
     // 发送
     const handleSubmit  = async (message: string, openReasoning: boolean) => {
-        if (!input.trim()) return
+        if (!message.trim()) return
+        let id = chatId
+        if (!id) {
+            const chatName = message.length > 10 ? message.substring(0, 15) : message;
+            const resp: ApiResponse = await fetch(`/api/chat`, {
+                method: 'POST',
+                body: JSON.stringify({chatName})
+            }).then(r => r.json());
 
+            if (resp.code === 200 && resp.data) {
+                setChatId(resp.data)
+                id = resp.data
+                console.log('新增会话成功, chatId:', chatId)
+
+                window.history.replaceState({}, '', `/chat/${id}`);
+
+                setTimeout(async () => {
+                    await streamChat(id, message, openReasoning);
+                }, 500)
+            } else {
+                toast.error("添加会话失败")
+            }
+        } else {
+            await streamChat(id, message, openReasoning);
+        }
+    }
+
+    async function streamChat(id: string, message: string, openReasoning: boolean) {
         const userMessage = {
             msgId: snowflake.generate().toString(),
-            chatId: chatId,
+            chatId: id,
             role: 'user',
             content: message,
             rawMsgId: '',
@@ -57,7 +86,7 @@ const ChatPage = (props: ChatProps) => {
         setLoading(true)
         const aiMessage = {
             msgId: snowflake.generate().toString(),
-            chatId: chatId,
+            chatId: id,
             role: 'assistant',
             content: '',
             rawMsgId: '',
@@ -77,7 +106,7 @@ const ChatPage = (props: ChatProps) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                chatId,
+                chatId: id,
                 content: message,
                 openReasoning,
             }),
@@ -101,7 +130,7 @@ const ChatPage = (props: ChatProps) => {
                                 ...lastMsg,
                                 role: 'assistant',
                                 content: lastMsg.content || '',
-                                reasoningContent: (lastMsg.reasoningContent || '') + (data.reasoningContent  || '') ,
+                                reasoningContent: (lastMsg.reasoningContent || '') + (data.reasoningContent || ''),
                             }
                         }
                         return updated
@@ -116,7 +145,7 @@ const ChatPage = (props: ChatProps) => {
                                 ...lastMsg,
                                 role: 'assistant',
                                 content: lastMsg.content + data.content,
-                                reasoningContent: lastMsg.reasoningContent ,
+                                reasoningContent: lastMsg.reasoningContent,
                             }
                         }
                         return updated
