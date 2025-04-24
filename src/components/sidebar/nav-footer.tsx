@@ -15,7 +15,7 @@ import {LoginUser} from "@/types/user";
 import {useAuth} from "@/components/provider/auth-provider";
 import {useRouter} from "next/navigation";
 
-const NavFooter = ({user}: {user?: LoginUser}) => {
+const NavFooter = ({user}: { user?: LoginUser }) => {
     const {open, isMobile} = useSidebar();
     const {logout} = useAuth();
     const router = useRouter();
@@ -33,7 +33,7 @@ const NavFooter = ({user}: {user?: LoginUser}) => {
                         >
                             <UserIcon/>
                             <span>{user?.username}</span>
-                            <ChevronsUpDown className="ml-auto size-4" />
+                            <ChevronsUpDown className="ml-auto size-4"/>
                         </SidebarMenuButton>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent
@@ -45,22 +45,22 @@ const NavFooter = ({user}: {user?: LoginUser}) => {
                     >
                         <DropdownMenuGroup>
                             <DropdownMenuItem>
-                                <BadgeCheck />
+                                <BadgeCheck/>
                                 Account
                             </DropdownMenuItem>
                             <DropdownMenuItem>
-                                <Settings />
+                                <Settings/>
                                 Settings
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
-                        <DropdownMenuSeparator />
+                        <DropdownMenuSeparator/>
                         <DropdownMenuItem
-                            onClick={ async () => {
+                            onClick={async () => {
                                 await logout()
                                 router.push('login')
                             }}
                         >
-                            <LogOut />
+                            <LogOut/>
                             <span>Log out</span>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
@@ -68,7 +68,13 @@ const NavFooter = ({user}: {user?: LoginUser}) => {
 
                 {/* Github */}
                 <SidebarMenuButton className='w-8 ml-auto cursor-pointer'>
-                    <GithubIcon/>
+                    <Link
+                        key='github_link'
+                        href='https://github.com/dawei1898/dw-chat-next'
+                        target="_blank"
+                    >
+                        <GithubIcon/>
+                    </Link>
                 </SidebarMenuButton>
 
                 {/* 切换亮暗 */}

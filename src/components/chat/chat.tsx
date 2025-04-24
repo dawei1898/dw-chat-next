@@ -118,7 +118,7 @@ const ChatPage = (props: ChatProps) => {
                 return Promise.resolve();
             },
             onmessage(event: EventSourceMessage) {
-                console.log('onmessage: ' + JSON.stringify(event))
+                console.debug('onmessage: ' + JSON.stringify(event))
                 const data: { content: string; reasoningContent?: string } = JSON.parse(event.data);
 
                 if (data.reasoningContent) {

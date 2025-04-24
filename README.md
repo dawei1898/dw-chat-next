@@ -7,6 +7,7 @@
 演示地址：https://dw-chat-next.vercel.app
 
 效果图：
+![demo1.png](public/demo1.png)
 
 
 
@@ -20,7 +21,7 @@
 
 4.shadcn/ui
 
-5.tailwind SCC
+5.tailwind css
 
 6.drizzle-orm
 
