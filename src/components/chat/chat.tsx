@@ -2,10 +2,10 @@
 
 import React, {useEffect, useRef, useState} from 'react';
 import ChatSender from './chat-sender';
-import ChatHeader from "@/app/(chat)/chat/chat-header";
-import ChatFooter from "@/app/(chat)/chat/chat-footer";
-import ChatMessages from "@/app/(chat)/chat/chat-messages";
-import InitWelcome from "@/app/(chat)/chat/init-welcome";
+import ChatHeader from "@/components/chat/chat-header";
+import ChatFooter from "@/components/chat/chat-footer";
+import ChatMessages from "@/components/chat/chat-messages";
+import InitWelcome from "@/components/chat/init-welcome";
 import {MessageVo} from "@/types/message";
 import {ApiResponse} from "@/types";
 import {EventSourceMessage, fetchEventSource} from "@microsoft/fetch-event-source";

@@ -2,7 +2,7 @@
 
 import React, {useEffect, useRef} from 'react';
 import {ScrollArea} from "@/components/ui/scroll-area";
-import ChatBubble from "@/app/(chat)/chat/chat-bubble";
+import ChatBubble from "@/components/chat/chat-bubble";
 import {MessageVo} from "@/types/message";
 
 

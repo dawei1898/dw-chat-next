@@ -5,7 +5,7 @@ import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {Button} from "@/components/ui/button";
 import {ThumbsUp, ThumbsDown, Copy, User, ChevronDown, ChevronUp, Atom} from 'lucide-react';
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
-import MarkdownRender from "@/app/(chat)/chat/markdown-render";
+import MarkdownRender from "@/components/chat/markdown-render";
 import {DeepSeekIcon} from "@/components/icons";
 import {toast} from "sonner";
 import {VoteType} from "@/types/message";

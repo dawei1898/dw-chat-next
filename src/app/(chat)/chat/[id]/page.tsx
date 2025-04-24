@@ -1,5 +1,5 @@
 import React from 'react';
-import ChatPage from "@/app/(chat)/chat/chat";
+import ChatPage from "@/components/chat/chat";
 import {fetchMessages} from "@/app/(chat)/actions";
 
 /**
