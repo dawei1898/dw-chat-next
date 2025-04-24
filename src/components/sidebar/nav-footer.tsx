@@ -12,9 +12,13 @@ import {BadgeCheck, ChevronsUpDown, LogOut, Settings} from "lucide-react";
 import Link from "next/link";
 import ThemeToggle from "@/components/sidebar/theme-toggle";
 import {LoginUser} from "@/types/user";
+import {useAuth} from "@/components/provider/auth-provider";
+import {useRouter} from "next/navigation";
 
 const NavFooter = ({user}: {user?: LoginUser}) => {
     const {open, isMobile} = useSidebar();
+    const {logout} = useAuth();
+    const router = useRouter();
 
     return (
         <SidebarMenu>
@@ -50,11 +54,14 @@ const NavFooter = ({user}: {user?: LoginUser}) => {
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>
+                        <DropdownMenuItem
+                            onClick={ async () => {
+                                await logout()
+                                router.push('login')
+                            }}
+                        >
                             <LogOut />
-                            <Link href='/login'>
-                                Log out
-                            </Link>
+                            <span>Log out</span>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
