@@ -39,6 +39,8 @@ dw-chat：后端工程        Github：https://github.com/dawei1898/dw-chat
 dw-chat-next：next 全栈版工程      Github：https://github.com/dawei1898/dw-chat-next
 
 
+### 初始化建表 SQL
+/db/init-sql/init-ddl-postgres.sql
 
 ### 本地启动项目
 
