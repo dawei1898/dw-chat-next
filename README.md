@@ -4,7 +4,7 @@
 由 NextJS 15 构建的全栈项目.
 
 
-演示地址：https://dw-chat-next.vercel.app
+演示地址：https://dw-chat-next.dw1898.top
 
 效果图：
 ![demo1.png](public/demo1.png)
