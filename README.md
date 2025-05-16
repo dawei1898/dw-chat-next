@@ -151,3 +151,8 @@ npm install @microsoft/fetch-event-source
 ```shell
 npm install swr
 ```
+
+动画
+```shell
+npm install framer-motion
+```
